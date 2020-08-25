@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "AngularNote"
+    }
+  },
+  "defaultProject": "AngularNote",
+  "cli": {
+    "analytics": "b66d395e-cd8c-4cf9-a859-632a5ad20ab7"
+  }
 }
