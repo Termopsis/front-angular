@@ -6,5 +6,4 @@ export class Category {
     this.id = id;
     this.title = title;
   }
-  // Todo  просмотреть категорию
 }

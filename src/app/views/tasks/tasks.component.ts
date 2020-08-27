@@ -13,11 +13,15 @@ export class TasksComponent implements OnInit {
 
   constructor(private dataHandler: DataHandlerService) { }
 
-  ngOnInit(): void {
-    this.tasks = this.dataHandler.getTasks();
-    // console.log(this.tasks);
-  }
+  // ngOnInit(): void {
+  //   this.tasks = this.dataHandler.getTasks();
+  //   // console.log(this.tasks);
+  // }
 
+  // rxJS
+  ngOnInit(): void {
+    this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
+  }
 
 
 }
