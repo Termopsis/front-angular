@@ -10,7 +10,9 @@
   <div class="sidebar-wrapper">
     <ul class="nav">
 <!--      структурная директива - *ngFor -->
-      <li *ngFor="let category of categories" class="nav-item" (click)="showTasksByCategory(category)">
+      <li *ngFor="let category of categories" (click)="showTasksByCategory(category)"
+          class="nav-item pointer"
+          [class.active]="category === selectedCategory">
         <a class="nav-link">
           <p>{{category.title}}</p>
         </a>

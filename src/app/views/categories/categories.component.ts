@@ -13,17 +13,19 @@ import {TasksComponent} from '../tasks/tasks.component';
 export class CategoriesComponent implements OnInit {
 
   categories: Category[];
-
+  selectedCategory: Category;
   constructor(private dataHandler: DataHandlerService) {
   }
 
   // метод вызывается авто после иниц компонента
   ngOnInit(): void {
-    this.categories = this.dataHandler.getCategories();
+    this.dataHandler.categorySubject.subscribe(categories => this.categories = categories);
+    // this.categories = this.dataHandler.getCategories();
     // console.log(this.categories);
   }
 
   showTasksByCategory(category: Category): void {
+    this.selectedCategory = category;
     this.dataHandler.fillTasksByCategory(category);
     // console.log(category);
   }
