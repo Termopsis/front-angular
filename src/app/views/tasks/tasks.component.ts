@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataHandlerService} from '../../service/data-handler.service';
+// import {DataHandlerService} from '../../service/data-handler.service';
 import {Task} from '../../model/Task';
 import * as Rx from 'rxjs';
 
@@ -12,7 +12,7 @@ export class TasksComponent implements OnInit {
 
   tasks: Task[];
 
-  constructor(private dataHandler: DataHandlerService) { }
+  constructor() { }
 
   // ngOnInit(): void {
   //   this.tasks = this.dataHandler.getTasks();
@@ -21,7 +21,7 @@ export class TasksComponent implements OnInit {
 
   // rxJS
   ngOnInit(): void {
-    this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
+    // this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
   }
 
   toggleTaskCompleted(task: Task): void {
