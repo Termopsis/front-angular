@@ -9,15 +9,17 @@
   </a></div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-<!--      структурная директива - *ngFor -->
-      <li *ngFor="let category of categories" (click)="showTasksByCategory(category)"
-          class="nav-item pointer"
+      <!--      структурная директива - *ngFor -->
+      <li class="nav-item pointer"
+          *ngFor="let category of categories"
+          (click)="showTasksByCategory(category)"
           [class.active]="category === selectedCategory">
         <a class="nav-link">
           <p>{{category.title}}</p>
+<!--          <p>{{category.uncompletedCount}}</p>-->
         </a>
       </li>
-
     </ul>
   </div>
+
 </div>

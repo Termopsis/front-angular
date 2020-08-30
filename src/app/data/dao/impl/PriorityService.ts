@@ -4,14 +4,14 @@ import {Priority} from 'src/app/model/Priority';
 import {Observable} from 'rxjs';
 import {PrioritySearchValues} from 'src/app/data/dao/search/SearchObjects';
 import {HttpClient} from '@angular/common/http';
-import {CommonServiceService} from 'src/app/data/dao/impl/common-service.service';
+import {CommonService} from 'src/app/data/dao/impl/CommonService';
 
 export const PRIORITY_URL_TOKEN = new InjectionToken<string>('url');
 
 @Injectable({
   providedIn: 'root'
 })
-export class PriorityServiceService extends CommonServiceService<Priority> implements PriorityDAO{
+export class PriorityService extends CommonService<Priority> implements PriorityDAO{
 
   constructor(@Inject(PRIORITY_URL_TOKEN)  private baseUrl,
               private http: HttpClient) {

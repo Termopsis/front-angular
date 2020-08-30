@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CategorySearchValues} from 'src/app/data/dao/search/SearchObjects';
-import {CategoryServiceService} from 'src/app/data/dao/impl/category-service.service';
+import {CategoryService} from 'src/app/data/dao/impl/CategoryService';
 import {Category} from 'src/app/model/Category';
 import {logger} from 'codelyzer/util/logger';
 
@@ -9,25 +9,21 @@ import {logger} from 'codelyzer/util/logger';
   templateUrl: 'app.component.html'
   // styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'My todo';
 
-  categories: Category[];
+  // categoriesInAppComponent: Category[];
 
-  constructor(
-    private categoryService: CategoryServiceService
-  ) {
+  constructor() {}
 
-  }
+  // ngOnInit(): void {
+  //   this.categoryService.findAll().subscribe(result => {
+  //     this.categoriesInAppComponent = result;
+  //     // console.log(result);
+  //   });
 
-  ngOnInit(): void {
-    this.categoryService.findAll().subscribe(result => {
-      this.categories = result;
-      console.log(result);
-    });
-
-    console.log(this.categories);
-    console.log('3');
-  }
+    // console.log(this.categoriesInAppComponent);
+    // console.log('3');
+  // }
 
 }

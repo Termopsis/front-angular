@@ -9,7 +9,7 @@ export const STAT_URL_TOKEN = new InjectionToken<string>('url');
 @Injectable({
   providedIn: 'root'
 })
-export class StatServiceService implements StatDAO {
+export class StatService implements StatDAO {
 
   constructor(@Inject(STAT_URL_TOKEN) private baseUrl,
               private http: HttpClient

@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {TaskSearchValues} from 'src/app/data/dao/search/SearchObjects';
 import {HttpClient} from '@angular/common/http';
 import {Priority} from 'src/app/model/Priority';
-import {CommonServiceService} from 'src/app/data/dao/impl/common-service.service';
+import {CommonService} from 'src/app/data/dao/impl/CommonService';
 import {CategoryDAO} from 'src/app/data/dao/interface/CategoryDAO';
 
 export const TASK_URL_TOKEN = new InjectionToken<string>('url');
@@ -13,7 +13,7 @@ export const TASK_URL_TOKEN = new InjectionToken<string>('url');
 @Injectable({
   providedIn: 'root'
 })
-export class TaskServiceService extends CommonServiceService<Task> implements TaskDAO{
+export class TaskService extends CommonService<Task> implements TaskDAO{
 
   constructor(@Inject(TASK_URL_TOKEN)  private baseUrl,
               private http: HttpClient) {

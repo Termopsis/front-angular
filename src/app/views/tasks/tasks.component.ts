@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 // import {DataHandlerService} from '../../service/data-handler.service';
 import {Task} from '../../model/Task';
 import * as Rx from 'rxjs';
+import {TaskService} from 'src/app/data/dao/impl/TaskService';
+import {PriorityService} from 'src/app/data/dao/impl/PriorityService';
 
 @Component({
   selector: 'app-tasks',
@@ -12,7 +14,7 @@ export class TasksComponent implements OnInit {
 
   tasks: Task[];
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   // ngOnInit(): void {
   //   this.tasks = this.dataHandler.getTasks();
@@ -21,6 +23,11 @@ export class TasksComponent implements OnInit {
 
   // rxJS
   ngOnInit(): void {
+    this.taskService.findAll().subscribe(result => {
+      this.tasks = result;
+      // console.log(result);
+    });
+
     // this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
   }
 

@@ -4,14 +4,14 @@ import {HttpClient} from '@angular/common/http';
 import {Category} from 'src/app/model/Category';
 import {Observable} from 'rxjs';
 import {CategorySearchValues} from 'src/app/data/dao/search/SearchObjects';
-import {CommonServiceService} from 'src/app/data/dao/impl/common-service.service';
+import {CommonService} from 'src/app/data/dao/impl/CommonService';
 
 export const CATEGORY_URL_TOKEN = new InjectionToken<string>('url');
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryServiceService extends CommonServiceService<Category> implements CategoryDAO{
+export class CategoryService extends CommonService<Category> implements CategoryDAO{
 
   constructor(@Inject(CATEGORY_URL_TOKEN)  private baseUrl,
               private http: HttpClient) {

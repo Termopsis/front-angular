@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CommonServiceService<T> {
+export class CommonService<T> {
 
   private readonly url: string;
 

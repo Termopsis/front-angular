@@ -6,10 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoriesComponent } from './views/categories/categories.component';
 import { TasksComponent } from './views/tasks/tasks.component';
 import { HttpClientModule} from '@angular/common/http';
-import {TASK_URL_TOKEN} from 'src/app/data/dao/impl/task-service.service';
-import {CATEGORY_URL_TOKEN} from 'src/app/data/dao/impl/category-service.service';
-import {PRIORITY_URL_TOKEN} from 'src/app/data/dao/impl/priority-service.service';
-import {STAT_URL_TOKEN} from 'src/app/data/dao/impl/stat-service.service';
+import {TASK_URL_TOKEN} from 'src/app/data/dao/impl/TaskService';
+import {CATEGORY_URL_TOKEN} from 'src/app/data/dao/impl/CategoryService';
+import {PRIORITY_URL_TOKEN} from 'src/app/data/dao/impl/PriorityService';
+import {STAT_URL_TOKEN} from 'src/app/data/dao/impl/StatService';
 
 
 @NgModule({
