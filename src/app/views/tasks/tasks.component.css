@@ -1,7 +1,41 @@
-.completed{
+.completed {
   text-decoration: line-through;
   color: #797979;
 }
-.nullData{
-  color: #797979;
+
+.novalue {
+  color: #b7b7b7;
+}
+
+.col-color{
+  wight: 1% !important;
+}
+
+.col-id{
+  wight: 4%;
+  text-align: center;
+}
+
+.col-title{
+  wight: 10%;
+}
+
+.col-priority{
+  width: 10%;
+}
+
+.col-category{
+  width: 10%;
+}
+
+.col-select{
+  width: 8%;
+}
+
+.col-operations{
+  width: 8%;
+}
+
+.col-date{
+  wight: 10% !important;
 }

@@ -1,45 +1,34 @@
-import { Injectable } from '@angular/core';
-import {Category} from '../model/Category';
-import {TestData} from '../data/testData';
+import {Injectable} from '@angular/core';
+import {Category} from "../model/Category";
+import {TestData} from "../data/TestData";
 import {Task} from '../model/Task';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject} from "rxjs";
+
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DataHandlerService {
 
-  categorySubject = new BehaviorSubject<Category[]>(TestData.categories);
-  tasksSubject = new BehaviorSubject<Task[]>(TestData.tasks);
-
-  constructor() { }
-
-  // getCategories(): void {
-  //   const categories = TestData.categories;
-  //   this.categorySubject.next(categories);
-  // }
-
-  // getTasks(): Task[]{
-  //   return TestData.tasks;
-  // }
+    tasksSubject = new BehaviorSubject<Task[]>(TestData.tasks);
+    categoriesSubject = new BehaviorSubject<Category[]>(TestData.categories);
 
 
-  // rxJS
-  // fillTasks(): void {
-  //   //  this.tasksSubject.next(TestData.tasks);
-  //   // }
+    constructor() {
+        this.fillTasks();
+    }
 
-  // getTasksByCategory(category: Category): Task[] {
-  //   const tasks = TestData.tasks.filter(task => task.category === category);
-  //   // console.log(tasks);
-  //   return tasks;
-  // }
+    // fillCategories() {
+    //     return TestData.categories;
+    // }
 
-  // rxJS
-  fillTasksByCategory(category: Category): void {
-    const tasks = TestData.tasks.filter(task => task.category === category);
-    this.tasksSubject.next(tasks);
-    // console.log(tasks);
-  }
+    fillTasks() {
+        this.tasksSubject.next(TestData.tasks);
+    }
+
+    fillTasksByCategory(category: Category) {
+        const tasks = TestData.tasks.filter(task => task.category === category);
+        this.tasksSubject.next(tasks);
+    }
 
 }

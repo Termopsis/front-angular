@@ -1,16 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CategoriesComponent } from './views/categories/categories.component';
-import { TasksComponent } from './views/tasks/tasks.component';
-import { HttpClientModule} from '@angular/common/http';
-import {TASK_URL_TOKEN} from 'src/app/data/dao/impl/TaskService';
-import {CATEGORY_URL_TOKEN} from 'src/app/data/dao/impl/CategoryService';
-import {PRIORITY_URL_TOKEN} from 'src/app/data/dao/impl/PriorityService';
-import {STAT_URL_TOKEN} from 'src/app/data/dao/impl/StatService';
-
+import {AppComponent} from './app.component';
+import {CategoriesComponent} from './views/categories/categories.component';
+import {TasksComponent} from "./views/tasks/tasks.component";
+import {MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -20,29 +15,13 @@ import {STAT_URL_TOKEN} from 'src/app/data/dao/impl/StatService';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule
   ],
-  providers: [
-
-    {
-      provide: TASK_URL_TOKEN,
-      useValue: 'http://localhost:8080/task'
-    },
-    {
-      provide: CATEGORY_URL_TOKEN,
-      useValue: 'http://localhost:8080/category'
-    },
-    {
-      provide: PRIORITY_URL_TOKEN,
-      useValue: 'http://localhost:8080/priority'
-    },
-    {
-      provide: STAT_URL_TOKEN,
-      useValue: 'http://localhost:8080/stat'
-    }
-
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

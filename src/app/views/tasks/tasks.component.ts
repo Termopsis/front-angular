@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-// import {DataHandlerService} from '../../service/data-handler.service';
-import {Task} from '../../model/Task';
-import * as Rx from 'rxjs';
-import {TaskService} from 'src/app/data/dao/impl/TaskService';
-import {PriorityService} from 'src/app/data/dao/impl/PriorityService';
+import {Component, OnInit} from '@angular/core';
+import {DataHandlerService} from "../../service/data-handler.service";
+import {Task} from 'src/app/model/Task';
+import {MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-tasks',
@@ -12,26 +10,50 @@ import {PriorityService} from 'src/app/data/dao/impl/PriorityService';
 })
 export class TasksComponent implements OnInit {
 
+  // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
+  private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
+  private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
+
+
   tasks: Task[];
 
-  constructor(private taskService: TaskService) { }
-
-  // ngOnInit(): void {
-  //   this.tasks = this.dataHandler.getTasks();
-  //   // console.log(this.tasks);
-  // }
-
-  // rxJS
-  ngOnInit(): void {
-    this.taskService.findAll().subscribe(result => {
-      this.tasks = result;
-      // console.log(result);
-    });
-
-    // this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
+  constructor(private dataHandler: DataHandlerService) {
   }
 
-  toggleTaskCompleted(task: Task): void {
+  ngOnInit() {
+    this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
+
+    // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
+    this.dataSource = new MatTableDataSource();
+
+    this.refreshTable();
+  }
+
+
+  toggleTaskCompleted(task: Task) {
     task.completed = !task.completed;
+  }
+
+  // в зависимости от статуса задачи - вернуть цвет названия
+  private getPriorityColor(task: Task) {
+
+    if (task.completed){
+      return '#979b9e';
+    }
+
+    if (task.priority && task.priority.color) {
+      return task.priority.color;
+    }
+
+    return '#bdbdbd';
+
+  }
+
+  // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
+  private refreshTable() {
+
+    this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
+
+
   }
 }
