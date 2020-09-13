@@ -13,3 +13,4 @@ export interface CommonDAO<T> {
   add(abj: T): Observable<T>;
 
 }
+

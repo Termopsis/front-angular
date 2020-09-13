@@ -11,14 +11,38 @@ export const PRIORITY_URL_TOKEN = new InjectionToken<string>('url');
 @Injectable({
   providedIn: 'root'
 })
-export class PriorityService extends CommonService<Priority> implements PriorityDAO{
+export class PriorityService implements PriorityDAO{
 
-  constructor(@Inject(PRIORITY_URL_TOKEN)  private baseUrl,
-              private http: HttpClient) {
-    super(baseUrl, http);
+  add(T): Observable<Priority> {
+    return undefined;
   }
 
-  findPriorities(prioritySearchValues: PrioritySearchValues): Observable<any> {
-    return this.http.post<Priority[]>(this.baseUrl + '/search', prioritySearchValues);
+  delete(id: number): Observable<Priority> {
+    return undefined;
   }
+
+  get(id: number): Observable<Priority> {
+    return undefined;
+  }
+
+  getAll(): Observable<Priority[]> {
+    return undefined;
+  }
+
+  update(T): Observable<Priority> {
+    return undefined;
+  }
+
+  findAll(): Observable<Priority[]> {
+    return undefined;
+  }
+
+  findById(id: number): Observable<Priority> {
+    return undefined;
+  }
+
+  search(title: string): Observable<Priority[]> {
+    return undefined;
+  }
+
 }
