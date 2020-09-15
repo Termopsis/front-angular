@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Task} from 'src/app/model/Task';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
@@ -17,8 +17,16 @@ export class TasksComponent implements OnInit {
   @ViewChild(MatPaginator,{static: false}) private paginator: MatPaginator;
   @ViewChild(MatSort,{static: false}) private sort: MatSort;
 
-  @Input() // - декоратор
   private tasks: Task[];
+
+  @Input('tasks')
+  private set setTasks(tasks: Task[]) {
+    this.tasks = tasks;
+    this.fillTable();
+  }
+
+  @Output()
+  updateTask = new EventEmitter<Task>();
 
   constructor(private dataHandler: DataHandlerService) {
   }
@@ -28,14 +36,8 @@ export class TasksComponent implements OnInit {
 
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     this.dataSource = new MatTableDataSource();
-
     this.fillTable();
   }
-
-  ngAfterViewInit(): void {
-    this.addTableObjects();
-  }
-
 
   toggleTaskCompleted(task: Task) {
     task.completed = !task.completed;
@@ -59,7 +61,11 @@ export class TasksComponent implements OnInit {
   // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
   private fillTable() {
 
-    this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
+    if (!this.dataSource) {
+      return;
+    }
+    this.dataSource.data = this.tasks;
+     // обновить источник данных (т.к. данные массива tasks обновились)
     this.addTableObjects();
 
     this.dataSource.sortingDataAccessor = (task, colName) => {
@@ -85,6 +91,13 @@ export class TasksComponent implements OnInit {
   private addTableObjects() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  private onClickTask(task: Task){
+    this.updateTask.emit(task);
+
+    //Вопрос_1
+    //console.log(task);
   }
 
 }

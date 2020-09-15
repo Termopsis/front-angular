@@ -47,8 +47,20 @@ export class TaskService implements TaskDAO{
   }
 
   search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
-    return undefined;
+    return of(this.searchTasks(category,searchText,status,priority));
   }
+
+  private searchTasks(category: Category, searchText: string, status: boolean, priority: Priority): Task[]{
+
+    let allTasks = TestData.tasks;
+
+    if (category != null){
+      allTasks = allTasks.filter(take =>take.category === category);
+    }
+    //console.log(allTasks.length);
+    return allTasks;
+  }
+
 
   update(T): Observable<Task> {
     return undefined;
