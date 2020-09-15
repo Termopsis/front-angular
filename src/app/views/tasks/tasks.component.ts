@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Task} from 'src/app/model/Task';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 
 @Component({
   selector: 'app-tasks',
@@ -28,7 +29,10 @@ export class TasksComponent implements OnInit {
   @Output()
   updateTask = new EventEmitter<Task>();
 
-  constructor(private dataHandler: DataHandlerService) {
+  constructor(
+    private dataHandler: DataHandlerService,
+    private dialog: MatDialog,
+  ) {
   }
 
   ngOnInit() {
@@ -44,7 +48,7 @@ export class TasksComponent implements OnInit {
   }
 
   // в зависимости от статуса задачи - вернуть цвет названия
-  private getPriorityColor(task: Task) {
+  private getPriorityColor(task: Task): string{
 
     if (task.completed){
       return '#979b9e';
@@ -93,9 +97,16 @@ export class TasksComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private onClickTask(task: Task){
-    this.updateTask.emit(task);
+  private openEditTaskDialog(task: Task): void{
 
+    const dialogRef = this.dialog.open(EditTaskComponent,{data: [task, "Редактирование задачи"],autoFocus: false})
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      //обработка результата.
+    })
+
+    //this.updateTask.emit(task);
     //Вопрос_1
     //console.log(task);
   }
