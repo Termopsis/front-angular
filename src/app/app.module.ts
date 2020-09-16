@@ -4,9 +4,18 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {CategoriesComponent} from './views/categories/categories.component';
 import {TasksComponent} from "./views/tasks/tasks.component";
-import {MatDialogModule, MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatFormFieldModule, MatIconModule,
+  MatInputModule, MatOptionModule,
+  MatPaginatorModule, MatSelectModule,
+  MatSortModule,
+  MatTableModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { EditTaskComponent } from './dialog/edit-task/edit-task.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +30,14 @@ import { EditTaskComponent } from './dialog/edit-task/edit-task.component';
     MatSortModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   entryComponents: [

@@ -42,7 +42,20 @@ export class AppComponent implements OnInit {
   }
 
   public onUpdateTask(task: Task){
-    console.log(task);
+    //console.log(task);
+
+    this.dataHandlerService.updateTask(task).subscribe(() =>{
+      this.dataHandlerService.searchTasks(
+        this.selectedCategory,
+        null,
+        null,
+        null
+      ).subscribe(tasks => {
+        this.tasks = tasks;
+      });
+
+    });
+
   }
 
 }

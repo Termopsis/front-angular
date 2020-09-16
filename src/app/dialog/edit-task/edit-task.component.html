@@ -1,9 +1,32 @@
-<p>{{dialogTitle}}</p>
-{{task.title}}
-<!--<div>-->
-<!--<mat-form-field>-->
-<!--  <mat-label>Favorite Animal</mat-label>-->
-<!--  <input matInput [(ngModel)]="task.title">-->
-<!--</mat-form-field>-->
-<!--</div>-->
-<button mat-button mat-dialog-close>Cancel</button>
+
+<mat-dialog-content>
+  <p mat-dialog-title>{{dialogTitle}}</p>
+
+  <mat-form-field>
+      <mat-label>Название (обязательно)</mat-label>
+      <input
+      #inputTitle
+      matInput
+      [(ngModel)]="tpmTitle"
+      (keydown.enter)="onConfirm()">
+    <button *ngIf="tpmTitle.trim().length > 0"
+      mat-botton matSuffix mat-icon-button aria-label="Clear"
+            (click)="tpmTitle=''" class="size25">
+
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button
+  mat-raised-button color="primary"
+  (click)="onConfirm()"
+  [disabled]="inputTitle.value.trim().length==0">
+  Сохранить
+  </button>
+
+  <button mat-raised-button (click)="onCancel()">Отмена</button>
+
+</mat-dialog-actions>

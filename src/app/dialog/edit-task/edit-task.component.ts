@@ -20,10 +20,22 @@ export class EditTaskComponent implements OnInit {
   private dialogTitle: string;
   private task: Task;
 
+  private tpmTitle: string;
+
   ngOnInit() {
     this.task = this.data[0];
     this.dialogTitle = this.data[1];
 
+    this.tpmTitle = this.task.title;
+  }
+
+  public onConfirm(): void{
+    this.task.title = this.tpmTitle;
+    this.dialogRef.close(this.task);
+  }
+
+  private onCancel(): void{
+    this.dialogRef.close(null);
   }
 
 }

@@ -9,6 +9,7 @@ import {CommonService} from 'src/app/data/dao/impl/CommonService';
 import {CategoryDAO} from 'src/app/data/dao/interface/CategoryDAO';
 import {Category} from 'src/app/model/Category';
 import {TestData} from 'src/app/data/testData';
+import {Test} from 'tslint';
 
 // export const TASK_URL_TOKEN = new InjectionToken<string>('url');
 
@@ -61,9 +62,12 @@ export class TaskService implements TaskDAO{
     return allTasks;
   }
 
+  update(task: Task): Observable<Task> {
 
-  update(T): Observable<Task> {
-    return undefined;
+    const taskTmp = TestData.tasks.find(t => t.id === task.id);
+    TestData.tasks.splice(TestData.tasks.indexOf(taskTmp),1,task);
+
+    return of(task);
   }
 
   findAll(): Observable<Task[]> {
