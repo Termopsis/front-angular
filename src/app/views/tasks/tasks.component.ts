@@ -1,9 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Task} from 'src/app/model/Task';
+// @ts-ignore
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 
+
+// @ts-ignore
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',

@@ -7,6 +7,8 @@ export interface CategoryDAO extends CommonDAO<Category>{
 
   // findCategories(categorySearchValues: CategorySearchValues): Observable<any>;
 
+
+
   search(title: string): Observable<Category[]>
 
 }

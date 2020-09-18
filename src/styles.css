@@ -18,4 +18,11 @@
   font-size: 25px !important;
 }
 
+.mat-form-field{
+ width: 100%;
+}
+
+.mat-dialog-container{
+ padding: 40px !important;
+}
 

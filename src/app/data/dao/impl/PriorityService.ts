@@ -1,10 +1,11 @@
 import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {PriorityDAO} from 'src/app/data/dao/interface/PriorityDAO';
 import {Priority} from 'src/app/model/Priority';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {PrioritySearchValues} from 'src/app/data/dao/search/SearchObjects';
 import {HttpClient} from '@angular/common/http';
 import {CommonService} from 'src/app/data/dao/impl/CommonService';
+import {TestData} from 'src/app/data/testData';
 
 export const PRIORITY_URL_TOKEN = new InjectionToken<string>('url');
 
@@ -26,7 +27,7 @@ export class PriorityService implements PriorityDAO{
   }
 
   getAll(): Observable<Priority[]> {
-    return undefined;
+    return of(TestData.priorities);
   }
 
   update(T): Observable<Priority> {
