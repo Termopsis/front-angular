@@ -54,7 +54,21 @@ export class AppComponent implements OnInit {
       ).subscribe(tasks => {
         this.tasks = tasks;
       });
+    });
 
+  }
+
+  public onDeleteTask(task: Task){
+
+    this.dataHandlerService.deleteTask(task.id).subscribe(() => {
+      this.dataHandlerService.searchTasks(
+        this.selectedCategory,
+        null,
+        null,
+        null
+      ).subscribe(tasks => {
+        this.tasks = tasks;
+      });
     });
 
   }

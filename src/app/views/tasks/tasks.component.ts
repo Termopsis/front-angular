@@ -30,6 +30,9 @@ export class TasksComponent implements OnInit {
   }
 
   @Output()
+  deleteTask = new EventEmitter<Task>();
+
+  @Output()
   updateTask = new EventEmitter<Task>();
 
   constructor(
@@ -108,6 +111,11 @@ export class TasksComponent implements OnInit {
     const dialogRef = this.dialog.open(EditTaskComponent,{data: [task, "Редактирование задачи"],autoFocus: false})
 
     dialogRef.afterClosed().subscribe(result => {
+
+      if(result === 'delete'){
+        this.deleteTask.emit(task);
+        return;
+      }
 
       //обработка результата.
       if (result as Task){

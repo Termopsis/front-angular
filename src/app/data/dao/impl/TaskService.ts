@@ -28,7 +28,14 @@ export class TaskService implements TaskDAO{
   }
 
   delete(id: number): Observable<Task> {
-    return undefined;
+    console.log(id);
+    const taskTmp = TestData.tasks.find(t => t.id === id);
+    console.log(TestData.tasks.length);
+    TestData.tasks.splice(TestData.tasks.indexOf(taskTmp), 1);
+    console.log(TestData.tasks.length);
+
+
+    return of(taskTmp);
   }
 
   getCompletedCountInCategory(category: Category): Observable<number> {
