@@ -75,6 +75,9 @@ export class TasksComponent implements OnInit {
      // обновить источник данных (т.к. данные массива tasks обновились)
     this.addTableObjects();
 
+    // когда получаем новые данные..
+    // чтобы можно было сортировать по столбцам "категория" и "приоритет", т.к. там не примитивные типы, а объекты
+    // @ts-ignore - показывает ошибку для типа даты, но так работает, т.к. можно возвращать любой тип
     this.dataSource.sortingDataAccessor = (task, colName) => {
 
       switch (colName) {

@@ -4,7 +4,6 @@ import {Task} from 'src/app/model/Task';
 import {DataHandlerService} from 'src/app/service/data-handler.service';
 import {Category} from 'src/app/model/Category';
 
-// @ts-ignore
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
