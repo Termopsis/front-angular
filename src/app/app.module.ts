@@ -7,10 +7,10 @@ import {CategoriesComponent} from './views/categories/categories.component';
 import {TasksComponent} from "./views/tasks/tasks.component";
 
 import {
-  MatButtonModule,
+  MatButtonModule, MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule, MatIconModule,
-  MatInputModule, MatOptionModule,
+  MatInputModule, MatNativeDateModule, MatOptionModule,
   MatPaginatorModule, MatSelectModule,
   MatSortModule,
   MatTableModule
@@ -20,6 +20,12 @@ import { EditTaskComponent } from './dialog/edit-task/edit-task.component';
 // @ts-ignore
 import {FormsModule} from '@angular/forms';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { TaskDatePipe } from './pipe/task-date.pipe';
+
+import {registerLocaleData} from '@angular/common';
+import localRu from '@angular/common/locales/ru';
+
+registerLocaleData(localRu);
 
 @NgModule({
   declarations: [
@@ -27,7 +33,8 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     CategoriesComponent,
     TasksComponent,
     EditTaskComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TaskDatePipe
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,10 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     MatButtonModule,
     MatIconModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+
   ],
   providers: [],
   entryComponents: [
