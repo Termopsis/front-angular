@@ -1,4 +1,3 @@
-import {CommonDAO} from './CommonDAO';
 import {Stat} from '../../../model/Stat';
 import {Observable} from 'rxjs';
 

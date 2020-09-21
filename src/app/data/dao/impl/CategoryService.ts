@@ -1,17 +1,8 @@
-import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {CategoryDAO} from 'src/app/data/dao/interface/CategoryDAO';
-import {HttpClient} from '@angular/common/http';
 import {Category} from 'src/app/model/Category';
 import {Observable, of} from 'rxjs';
-import {CategorySearchValues} from 'src/app/data/dao/search/SearchObjects';
-import {CommonService} from 'src/app/data/dao/impl/CommonService';
 import {TestData} from 'src/app/data/testData';
 
-// export const CATEGORY_URL_TOKEN = new InjectionToken<string>('url');
-//
-// @Injectable({
-//   providedIn: 'root'
-// })
 export class CategoryService implements CategoryDAO{
 
   findAll(): Observable<Category[]> {
@@ -35,11 +26,26 @@ export class CategoryService implements CategoryDAO{
   }
 
   delete(id: number): Observable<Category> {
-    return undefined;
+
+    //Нужно удалить категории во всех задачах которые её использовали
+    //В БД это делается автоматом
+    TestData.tasks.forEach(task =>{
+      if (task.category && task.category.id === id){
+        task.category = null;
+      }
+    });
+
+    const categoryTmp = TestData.categories.find(c => c.id == id);
+    TestData.categories.splice(TestData.categories.indexOf(categoryTmp),1);
+    return of(categoryTmp);
   }
 
   update(category: Category): Observable<Category> {
-    return undefined;
+
+    const categoryTmp = TestData.categories.find(c => c.id === category.id);
+    TestData.categories.splice(TestData.categories.indexOf(categoryTmp), 1,category);
+
+    return of(category);
   }
 
 

@@ -1,16 +1,15 @@
-
 <mat-dialog-content>
   <p mat-dialog-title>{{dialogTitle}}</p>
 
   <mat-form-field>
-      <mat-label>Название (обязательно)</mat-label>
-      <input
+    <mat-label>Название (обязательно)</mat-label>
+    <input
       #inputTitle
       matInput
       [(ngModel)]="tpmTitle"
       (keydown.enter)="onConfirm()">
     <button *ngIf="tpmTitle.trim().length > 0"
-      mat-botton matSuffix mat-icon-button aria-label="Clear"
+            mat-botton matSuffix mat-icon-button aria-label="Clear"
             (click)="tpmTitle=''" class="size25">
 
       <mat-icon>clear</mat-icon>
@@ -43,37 +42,38 @@
 
   <mat-form-field>
 
-<!-- Добавляем компонент календарь   -->
-<!--    Указываем ссылку нашему тэгу-->
+    <!-- Добавляем компонент календарь   -->
+    <!--    Указываем ссылку нашему тэгу-->
     <input
-          matInput placeholder="Укажите срок выполнения" #inputDate
-          readonly="true"
+      matInput placeholder="Укажите срок выполнения" #inputDate
+      readonly="true"
 
-          [matDatepicker]="picker"
-          [(ngModel)]="tmpDate"
+      [matDatepicker]="picker"
+      [(ngModel)]="tmpDate"
+      (click)="picker.open()">
 
-          (click)="picker.open()">
-
-<!--    Иконка календаря-->
+    <!--    Иконка календаря-->
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 
-<!--    Комеонент календаря(открытие по нажатию)-->
+    <!--    Компонент календаря(открытие по нажатию)-->
     <mat-datepicker #picker></mat-datepicker>
 
-<!--    Кнопка очистки-->
+    <!--    Кнопка очистки-->
     <button
-        *ngIf="inputDate.value.trim().length > 0"
-        mat-button matSuffix mat-icon-button aria-label="Clear"
-        (click)="tmpDate=null" class="size25">
+      *ngIf="inputDate.value.trim().length > 0"
+      mat-button matSuffix mat-icon-button aria-label="Clear"
+      (click)="tmpDate=null" class="size25">
 
       <mat-icon>clear</mat-icon>
 
-    ></button>
+    </button>
 
   </mat-form-field>
 
 </mat-dialog-content>
 
+
+<!--Действия с формой-->
 <mat-dialog-actions>
 
   <div class="col-md-5 col-12">

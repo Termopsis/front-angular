@@ -1,17 +1,9 @@
-import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {TaskDAO} from 'src/app/data/dao/interface/TaskDAO';
 import {Task} from 'src/app/model/Task';
 import {Observable, of} from 'rxjs';
-import {TaskSearchValues} from 'src/app/data/dao/search/SearchObjects';
-import {HttpClient} from '@angular/common/http';
 import {Priority} from 'src/app/model/Priority';
-import {CommonService} from 'src/app/data/dao/impl/CommonService';
-import {CategoryDAO} from 'src/app/data/dao/interface/CategoryDAO';
 import {Category} from 'src/app/model/Category';
 import {TestData} from 'src/app/data/testData';
-import {Test} from 'tslint';
-
-// export const TASK_URL_TOKEN = new InjectionToken<string>('url');
 
 export class TaskService implements TaskDAO{
 
@@ -28,12 +20,8 @@ export class TaskService implements TaskDAO{
   }
 
   delete(id: number): Observable<Task> {
-    console.log(id);
     const taskTmp = TestData.tasks.find(t => t.id === id);
-    console.log(TestData.tasks.length);
     TestData.tasks.splice(TestData.tasks.indexOf(taskTmp), 1);
-    console.log(TestData.tasks.length);
-
 
     return of(taskTmp);
   }

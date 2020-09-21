@@ -4,13 +4,13 @@
 @import "~bootstrap-css-only/css/bootstrap.min.css";
 
 .not-found {
-    margin-top: 30px;
+  margin-top: 30px;
   font-size: 20px;
-  color: rgba(75,75,75,1);
+  color: rgba(75, 75, 75, 1);
   text-align: center;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
@@ -18,15 +18,24 @@
   font-size: 25px !important;
 }
 
-.mat-form-field{
- width: 100%;
+.mat-form-field {
+  width: 100%;
 }
 
-.mat-dialog-container{
- padding: 40px !important;
+.mat-dialog-container {
+  padding: 40px !important;
 }
 
-.red{
+.red {
   color: red;
 }
 
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.line {
+  border-bottom: 1px solid #dadada;
+  padding-top: 20px;
+}

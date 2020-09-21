@@ -1,12 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Task} from 'src/app/model/Task';
-// @ts-ignore
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
+import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
+import {Category} from 'src/app/model/Category';
 
-
-// @ts-ignore
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -15,13 +14,11 @@ import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 export class TasksComponent implements OnInit {
 
   // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
-  private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
+  private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category', 'operations', 'select'];
   private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
   @ViewChild(MatPaginator,{static: false}) private paginator: MatPaginator;
   @ViewChild(MatSort,{static: false}) private sort: MatSort;
-
-  private tasks: Task[];
 
   @Input('tasks')
   private set setTasks(tasks: Task[]) {
@@ -35,6 +32,13 @@ export class TasksComponent implements OnInit {
   @Output()
   updateTask = new EventEmitter<Task>();
 
+  //Обработка будет происходить в родительском классе app.component.ts
+  //В родительской html делаем событие "(selectCategory)="onSelectCategory($event)""
+  @Output()
+  selectCategory = new EventEmitter<Category>();
+
+  private tasks: Task[];
+
   constructor(
     private dataHandler: DataHandlerService,
     private dialog: MatDialog,
@@ -42,15 +46,9 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.dataHandler.getAllTasks().subscribe(tasks => this.tasks = tasks);
-
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     this.dataSource = new MatTableDataSource();
     this.fillTable();
-  }
-
-  toggleTaskCompleted(task: Task) {
-    task.completed = !task.completed;
   }
 
   // в зависимости от статуса задачи - вернуть цвет названия
@@ -98,7 +96,6 @@ export class TasksComponent implements OnInit {
         }
       }
     };
-
   }
 
   private addTableObjects() {
@@ -106,23 +103,45 @@ export class TasksComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private openEditTaskDialog(task: Task): void{
+  private openEditTaskDialog(task: Task): void {
 
-    const dialogRef = this.dialog.open(EditTaskComponent,{data: [task, "Редактирование задачи"],autoFocus: false})
+    const dialogRef = this.dialog.open(EditTaskComponent, {data: [task, 'Редактирование задачи'], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if(result === 'delete'){
+      if (result === 'delete') {
         this.deleteTask.emit(task);
         return;
       }
 
       //обработка результата.
-      if (result as Task){
+      if (result as Task) {
         this.updateTask.emit(task);
         return;
       }
-    })
+    });
+  }
+
+  private openDeleteDialog(task: Task):void{
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,{
+      maxWidth: '500px',
+      data: {dialogTitles: 'Подтвердите действие', message: `Вы действительно хотите удалить задачу: "${task}"?`},
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){}
+      this.deleteTask.emit(task);
+    });
+  }
+
+  private onToggleStatus(task: Task){
+    task.completed = !task.completed;
+    this.updateTask.emit(task);
+  }
+
+  private onSelectedCategory(category: Category){
+    this.selectCategory.emit(category);
 
   }
 

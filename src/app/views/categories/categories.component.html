@@ -1,27 +1,40 @@
 <div class="sidebar" data-background-color="white" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
-    <!--
-      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-      Tip 2: you can also add an image using data-image tag
-  -->
-    <div class="logo">
-        <a class="simple-text logo-normal">
-            Категории
+  <!--  Название правого столбца-->
+  <div class="logo">
+    <a class="simple-text logo-normal">Категории</a>
+  </div>
+
+  <!--  Вывод всех категорий списком-->
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+
+      <!--      Категория все - Для удобства -->
+      <li class="nav-item category" (click)="showTasksByCategory(null)" [class.active]="selectedCategory === null">
+        <a class="nav-link pointer">
+          <span class="all-category-title">Все</span>
         </a>
-    </div>
-    <div class="sidebar-wrapper">
-        <ul class="nav">
-            <li (click)="showTasksByCategory(category)"
-                *ngFor="let category of categories" [class.active]="category === selectedCategory"
+      </li>
 
-                class="nav-item pointer"
+      <!--      Разделитель-->
+      <div class="line"></div>
 
-            >
-                <a class="nav-link">
-                    <p>{{category.title}}</p>
-                </a>
-            </li>
+      <!--      Категории из БД-->
+      <li (click)="showTasksByCategory(category)"
+          *ngFor="let category of categories; let index = index" [class.active]="category === selectedCategory"
 
-        </ul>
-    </div>
+          (mouseleave)="showEditIcon(null)"
+          (mouseenter)="showEditIcon(index)"
+
+          class="nav-item pointer">
+        <a class="nav-link">
+          <span class="category-title">{{category.title}}</span>
+          <mat-icon *ngIf="indexMouseMove === index"
+                    (click)="$event.stopPropagation(); openEditCategoryDialog(category)"
+                    class="edit-category-icon">edit</mat-icon>
+        </a>
+      </li>
+
+    </ul>
+  </div>
 </div>

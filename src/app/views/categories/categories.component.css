@@ -1,3 +1,21 @@
-.pointer {
-    cursor: pointer;
+.all-category-title{
+  font-size: large;
+  font-weight: bold;
+}
+
+.edit-category-icon-area{
+  width: 15%;
+  display: inline-block;
+  text-align: left;
+  font-size: 13px;
+}
+
+.category-title{
+  width: 70%;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.edit-category-icon{
+  color: #dadada;
 }

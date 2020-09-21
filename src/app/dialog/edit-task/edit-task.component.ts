@@ -39,6 +39,7 @@ export class EditTaskComponent implements OnInit {
     this.tmpPriority = this.task.priority;
     this.tmpDate =this.task.date;
 
+    //Заполнение списком выбора ссылочных полей
     this.dataHandlerService.getAllCategories().subscribe(items => this.categories = items);
     this.dataHandlerService.getAllPriorities().subscribe(items => this.priorities = items);
 
