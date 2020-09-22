@@ -5,6 +5,8 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import {Category} from 'src/app/model/Category';
+import {Priority} from 'src/app/model/Priority';
+import validate = WebAssembly.validate;
 
 @Component({
   selector: 'app-tasks',
@@ -13,17 +15,24 @@ import {Category} from 'src/app/model/Category';
 })
 export class TasksComponent implements OnInit {
 
+
+
   // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
   private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category', 'operations', 'select'];
   private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
-  @ViewChild(MatPaginator,{static: false}) private paginator: MatPaginator;
-  @ViewChild(MatSort,{static: false}) private sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
   @Input('tasks')
   private set setTasks(tasks: Task[]) {
     this.tasks = tasks;
     this.fillTable();
+  }
+
+  @Input('priorities')
+  private set setPriorities(priorities: Priority[]) {
+    this.priorities = priorities;
   }
 
   @Output()
@@ -37,24 +46,41 @@ export class TasksComponent implements OnInit {
   @Output()
   selectCategory = new EventEmitter<Category>();
 
+  @Output()
+  filterByPriority = new EventEmitter<Priority>();
+
+  @Output()
+  filterByStatus = new EventEmitter<boolean>();
+
+  @Output()
+  filterByTitle = new EventEmitter<string>();
+
+  private selectedPriorityFilter: Priority;
+  private selectedStatusFilter: boolean;
+  private searchTaskText: string;
+  private priorities: Priority[];
+
   private tasks: Task[];
 
   constructor(
     private dataHandler: DataHandlerService,
     private dialog: MatDialog,
+    private dataHandlerService: DataHandlerService,
   ) {
   }
 
   ngOnInit() {
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     this.dataSource = new MatTableDataSource();
+    //this.dataHandlerService.getAllPriorities().subscribe(items => this.priorities = items);
+
     this.fillTable();
   }
 
   // в зависимости от статуса задачи - вернуть цвет названия
-  private getPriorityColor(task: Task): string{
+  private getPriorityColor(task: Task): string {
 
-    if (task.completed){
+    if (task.completed) {
       return '#979b9e';
     }
 
@@ -73,7 +99,7 @@ export class TasksComponent implements OnInit {
       return;
     }
     this.dataSource.data = this.tasks;
-     // обновить источник данных (т.к. данные массива tasks обновились)
+    // обновить источник данных (т.к. данные массива tasks обновились)
     this.addTableObjects();
 
     // когда получаем новые данные..
@@ -122,27 +148,49 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  private openDeleteDialog(task: Task):void{
-    const dialogRef = this.dialog.open(ConfirmDialogComponent,{
+  private openDeleteDialog(task: Task): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '500px',
       data: {dialogTitles: 'Подтвердите действие', message: `Вы действительно хотите удалить задачу: "${task}"?`},
       autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){}
+      if (result) {
+      }
       this.deleteTask.emit(task);
     });
   }
 
-  private onToggleStatus(task: Task){
+  private onToggleStatus(task: Task) {
     task.completed = !task.completed;
     this.updateTask.emit(task);
+
   }
 
-  private onSelectedCategory(category: Category){
+  private onSelectedCategory(category: Category) {
     this.selectCategory.emit(category);
 
+  }
+
+  private onFilterByTitle() {
+    this.filterByTitle.emit(this.searchTaskText);
+
+  }
+
+  private onFilterByStatus(value: boolean) {
+
+    if (value !== this.selectedStatusFilter) {
+      this.selectedStatusFilter = value;
+      this.filterByStatus.emit(this.selectedStatusFilter);
+    }
+  }
+
+  private onFilterByPriority(priority: Priority){
+    if (priority !== this.selectedPriorityFilter){
+      this.selectedPriorityFilter = priority;
+      this.filterByPriority.emit(this.selectedPriorityFilter);
+    }
   }
 
 }
