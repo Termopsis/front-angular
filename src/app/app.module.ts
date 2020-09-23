@@ -28,6 +28,14 @@ import {TaskDatePipe} from './pipe/task-date.pipe';
 import {registerLocaleData} from '@angular/common';
 import localRu from '@angular/common/locales/ru';
 import { EditCategoryComponent } from './dialog/edit-category/edit-category.component';
+import { FooterComponent } from './views/footer/footer.component';
+import { HeaderComponent } from './views/header/header.component';
+import { StatComponent } from './views/stat/stat.component';
+import { StatCardComponent } from './views/stat/stat-card/stat-card.component';
+import {ColorPickerModule} from 'ngx-color-picker';
+import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialog.component';
+import { PrioritiesComponent } from './views/priorities/priorities.component';
+import { EditPriorityDialogComponent } from './dialog/edit-priority-dialog/edit-priority-dialog.component';
 
 registerLocaleData(localRu);
 
@@ -39,7 +47,14 @@ registerLocaleData(localRu);
     EditTaskComponent,
     ConfirmDialogComponent,
     TaskDatePipe,
-    EditCategoryComponent
+    EditCategoryComponent,
+    FooterComponent,
+    HeaderComponent,
+    StatComponent,
+    StatCardComponent,
+    SettingsDialogComponent,
+    PrioritiesComponent,
+    EditPriorityDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,14 +72,16 @@ registerLocaleData(localRu);
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
-
+    MatCheckboxModule,
+    ColorPickerModule
   ],
   providers: [],
   entryComponents: [
     EditTaskComponent,
     EditCategoryComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SettingsDialogComponent,
+    EditPriorityDialogComponent
   ],
   bootstrap: [AppComponent]
 })

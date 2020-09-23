@@ -109,7 +109,8 @@
       <!--  В случае если есть задачи, сделаем их вывод -->
       <div class="card-body table-responsive" *ngIf="tasks && tasks.length > 0">
 
-        <table [dataSource]="dataSource" mat-table matSort>
+        <table [dataSource]="dataSource" mat-table matSort
+        class="w-100">
 
           <!--      Цвет-->
           <ng-container matColumnDef="color">

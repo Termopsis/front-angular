@@ -6,8 +6,9 @@
 .not-found {
   margin-top: 30px;
   font-size: 20px;
-  color: rgba(75, 75, 75, 1);
+  color: rgba(74, 74, 74, 0.98);
   text-align: center;
+
 }
 
 .pointer {
@@ -31,8 +32,8 @@
 }
 
 .link {
-  cursor: pointer;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .line {
@@ -40,6 +41,14 @@
   padding-top: 20px;
 }
 
-.gray{
+.gray {
   color: #8f8f8f;
+}
+
+.main-panel > .content{
+  margin-top: 30px !important;
+}
+
+app-header{
+  width: 100%;
 }

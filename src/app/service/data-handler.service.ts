@@ -33,10 +33,6 @@ export class DataHandlerService {
     return this.categoryArray.getAll();
   }
 
-  getAllPriorities(): Observable<Priority[]> {
-    return this.priorityArray.getAll();
-  }
-
   getAllTasks(): Observable<Task[]> {
     return this.taskArray.getAll();
   }
@@ -62,6 +58,39 @@ export class DataHandlerService {
   }
   deleteCategory(id: number): Observable<Category>{
     return this.categoryArray.delete(id);
+  }
+
+  getCompletedCountInCategory(category: Category): Observable<number> {
+    return this.taskArray.getCompletedCountInCategory(category);
+  }
+
+  getUncompletedTotalCount(): Observable<number> {
+    return this.taskArray.getUncompletedCountInCategory(null);
+  }
+
+  getUncompletedCountInCategory(category: Category): Observable<number> {
+    return this.taskArray.getUncompletedCountInCategory(category);
+  }
+
+  getTotalCountInCategory(category: Category): Observable<number> {
+    return this.taskArray.getTotalCountInCategory(category);
+  }
+
+  //Приоритеты -------------------------------
+  getAllPriorities(): Observable<Priority[]> {
+    return this.priorityArray.getAll();
+  }
+
+  addPriority(priority: Priority): Observable<Priority> {
+    return this.priorityArray.add(priority);
+  }
+
+  deletePriority(id: number): Observable<Priority> {
+    return this.priorityArray.delete(id);
+  }
+
+  updatePriority(priority: Priority): Observable<Priority> {
+    return this.priorityArray.update(priority);
   }
 
 }

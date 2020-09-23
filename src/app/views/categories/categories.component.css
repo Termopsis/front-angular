@@ -44,3 +44,7 @@ span.add-icon-area{
   width: 100%;
   overflow-x: hidden;
 }
+
+.sidebar-background{
+  background-image: url(../../../assets/img/sidebar-1.jpg) !important;
+}
