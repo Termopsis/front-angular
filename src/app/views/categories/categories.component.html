@@ -1,52 +1,53 @@
 <div class="sidebar" data-background-color="white" data-color="purple">
 
   <div id="categories">
-  <!--  Название левого столбца-->
-  <div class="logo">
+    <!--  Название левого столбца-->
+    <div class="logo">
 
-    <span class="nav-title">Категории</span>
+      <span class="nav-title">Категории</span>
 
-    <span class="add-icon-area">
+      <span class="add-icon-area">
       <button mat-icon-button class="add-icon"
-      (click)="onAddCategory()">
+              (click)="onAddCategory()">
         <mat-icon>add</mat-icon>
       </button>
     </span>
 
-  </div>
+    </div>
   </div>
 
   <!--  Вывод всех категорий списком-->
   <div class="sidebar-wrapper">
     <ul class="nav">
 
-    <div class="search-category-area">
-      <mat-form-field class="example-full-width">
-        <input
-          #inputSearchCategory
-          (keydown.escape)="searchCategoryTitle = ''; search()"
-          (keyup)="search()"
-          [(ngModel)]="searchCategoryTitle"
-          matInput
-          matlength="256"
-          placeholder="Поиск категорий">
+      <div class="search-category-area">
+        <mat-form-field class="example-full-width">
+          <input
+            #inputSearchCategory
+            (keydown.escape)="searchCategoryTitle = ''; search()"
+            (keyup)="search()"
+            [(ngModel)]="searchCategoryTitle"
+            matInput
+            matlength="256"
+            placeholder="Поиск категорий">
 
-        <button
-        (click)="searchCategoryTitle = ''; search()"
-        *ngIf="inputSearchCategory.value.trim().length > 0" aria-label="clear"
-        class="search-category-button size25 gray"
-        mat-button
-        mat-icon-button
-        matSuffix>
-          <mat-icon>clear</mat-icon>
-        </button>
+          <button
+            (click)="searchCategoryTitle = ''; search()"
+            *ngIf="inputSearchCategory.value.trim().length > 0" aria-label="clear"
+            class="search-category-button size25 gray"
+            mat-button
+            mat-icon-button
+            matSuffix>
+            <mat-icon>clear</mat-icon>
+          </button>
 
-      </mat-form-field>
-    </div>
-      <!--      Категория все - Для удобства -->
+        </mat-form-field>
+      </div>
+      <!--      Категория ВСЕ - Для удобства -->
       <li class="nav-item category" (click)="showTasksByCategory(null)" [class.active]="selectedCategory === null">
         <a class="nav-link pointer">
           <span class="all-category-title">Все</span>
+          <span class="uncompleted-count"> {{uncompletedTotal}}</span>
         </a>
       </li>
 
@@ -57,18 +58,24 @@
       <div *ngIf="categories.length == 0"><p class="not-found">Ничего не найдено</p></div>
 
       <!--      Категории из БД-->
-      <li (click)="showTasksByCategory(category)"
-          *ngFor="let category of categories; let index = index" [class.active]="category === selectedCategory"
+      <li
+        *ngFor="let mapValue of selectedCategoryMap | keyvalue; let index = index"
+        [class.active]="mapValue.key === selectedCategory"
+        (click)="showTasksByCategory(mapValue.key)"
 
-          (mouseleave)="showEditIcon(null)"
-          (mouseenter)="showEditIcon(index)"
+        (mouseleave)="showEditIcon(null)"
+        (mouseenter)="showEditIcon(index)"
 
-          class="nav-item pointer">
+        class="nav-item pointer">
         <a class="nav-link">
-          <span class="category-title">{{category.title}}</span>
+          <span class="category-title">{{mapValue.key.title}}</span>
           <mat-icon *ngIf="indexMouseMove === index"
-                    (click)="$event.stopPropagation(); openEditCategoryDialog(category)"
-                    class="edit-category-icon">edit</mat-icon>
+                    (click)="$event.stopPropagation(); openEditCategoryDialog(mapValue.key)"
+                    class="edit-category-icon">edit
+          </mat-icon>
+
+          <span class="uncompleted-count"> {{mapValue.value}}</span>
+
         </a>
       </li>
 
@@ -79,3 +86,9 @@
   <div class="sidebar-background"></div>
 
 </div>
+
+
+
+
+
+

@@ -7,6 +7,8 @@
     (updateCategory)="onUpdateCategory($event)"
     (deleteCategory)="onDeleteCategory($event)"
     (addCategory)="onAddCategory($event)"
+    [categoryMap]="categoryMap"
+    [uncompletedTotal]="uncompletedTotalTasksCount"
 
     [selectedCategory]="selectedCategory"
     [categories]="categories"
@@ -49,7 +51,7 @@
 
 
               [selectedCategory]="selectedCategory"
-              (filterByStatus)="onFilterTaskByStatus($event)"
+              (filterByStatus)="onFilterTasksByStatus($event)"
               (filterByTitle)="onSearchTasks($event)"
               (filterByPriority)="onFilterTaskByPriority($event)"
 

@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Category} from "../../model/Category";
 import {MatDialog} from '@angular/material';
-import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 import {EditCategoryComponent} from 'src/app/dialog/edit-category/edit-category.component';
 import {OpenType} from 'src/app/dialog/OpenType';
 
@@ -34,8 +33,18 @@ export class CategoriesComponent implements OnInit {
   @Output()
   searchCategory = new EventEmitter<string>();
 
-  indexMouseMove: number;
-  searchCategoryTitle: string;
+  @Input('categoryMap')
+  set setCategoryMap(categoryMap: Map<Category, number>) {
+    this.selectedCategoryMap = categoryMap;
+  }
+
+  @Input()
+  uncompletedTotal: number;
+
+  private indexMouseMove: number;
+  private searchCategoryTitle: string;
+  private selectedCategoryMap: Map<Category, number>;
+
 
 
   constructor(private dataHandler: DataHandlerService,
@@ -47,7 +56,7 @@ export class CategoriesComponent implements OnInit {
 
   }
 
-  showTasksByCategory(category: Category) {
+  private showTasksByCategory(category: Category) {
 
     if(this.selectedCategory === category){
       return;
@@ -57,12 +66,16 @@ export class CategoriesComponent implements OnInit {
     this.selectCategory.emit(this.selectedCategory);
   }
 
-  showEditIcon(index: number){
+  private showEditIcon(index: number){
     this.indexMouseMove = index;
   }
 
-  openEditCategoryDialog(category: Category){
-    const dialogRef = this.dialog.open(EditCategoryComponent,{data: [category.title, 'Редактирование категории',OpenType.EDIT], autoFocus: false});
+  private openEditCategoryDialog(category: Category){
+    const dialogRef = this.dialog.open(EditCategoryComponent,{
+      data: [category.title, 'Редактирование категории', OpenType.EDIT],
+      autoFocus: false,
+      width: '400px'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
 
@@ -71,7 +84,7 @@ export class CategoriesComponent implements OnInit {
         return;
       }
 
-      if (typeof (result) === 'string'){
+      if (result as string) {
         category.title = result as string;
 
         this.updateCategory.emit(category);
@@ -81,9 +94,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   public onAddCategory(){
-    //const category = new Category(null,'');
 
-    const dialogRef = this.dialog.open(EditCategoryComponent,{data: ['','Добавление категории',OpenType.ADD],autoFocus: false});
+    const dialogRef = this.dialog.open(EditCategoryComponent,{
+      data: ['','Добавление категории',OpenType.ADD],
+      autoFocus: false,
+      width: '400px'
+    });
 
     dialogRef.afterClosed().subscribe(result =>{
       if (result){
