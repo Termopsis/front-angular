@@ -21,6 +21,14 @@ export class DataHandlerService {
   constructor() {
   }
 
+  addCategory(title: string): Observable<Category>{
+    return this.categoryArray.add(new Category(null,title));
+  }
+
+  addTask(task: Task): Observable<Task>{
+    return this.taskArray.add(task);
+  }
+
   getAllCategories(): Observable<Category[]> {
     return this.categoryArray.getAll();
   }
@@ -39,6 +47,10 @@ export class DataHandlerService {
 
   updateCategory(category: Category): Observable<Category>{
     return this.categoryArray.update(category);
+  }
+
+  searchCategory(title: string): Observable<Category[]>{
+    return this.categoryArray.search(title);
   }
 
   searchTasks(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {

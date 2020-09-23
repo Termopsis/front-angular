@@ -30,7 +30,8 @@
     <button mat-raised-button (click)="onCancel()">Отмена</button>
   </div>
 
-  <div class="col-12 text-center">
+  <div *ngIf="canDelete()"
+    class="col-12 text-center">
     <button mat-button
             class="red"
             (click)="delete()">

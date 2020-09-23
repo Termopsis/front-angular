@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Category} from 'src/app/model/Category';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
+import {OpenType} from 'src/app/dialog/OpenType';
 
 @Component({
   selector: 'app-edit-category',
@@ -13,10 +14,11 @@ export class EditCategoryComponent implements OnInit {
   //private category: Category;
   private dialogTitle: string;
   private title: string;
+  private openType: OpenType;
 
   constructor(
     private dialogRef: MatDialogRef<EditCategoryComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: [string, string],
+    @Inject(MAT_DIALOG_DATA) private data: [string, string, OpenType],
     private dialog: MatDialog,
   ) { }
 
@@ -24,6 +26,7 @@ export class EditCategoryComponent implements OnInit {
 
     this.title = this.data[0];
     this.dialogTitle = this.data[1];
+    this.openType = this.data[2];
 
   }
 
@@ -52,6 +55,10 @@ export class EditCategoryComponent implements OnInit {
 
   public onCancel(){
     this.dialogRef.close(false);
+  }
+
+  public canDelete(): boolean{
+    return this.openType === OpenType.EDIT;
   }
 
 }

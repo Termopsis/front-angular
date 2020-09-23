@@ -4,6 +4,7 @@ import {Category} from "../../model/Category";
 import {MatDialog} from '@angular/material';
 import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 import {EditCategoryComponent} from 'src/app/dialog/edit-category/edit-category.component';
+import {OpenType} from 'src/app/dialog/OpenType';
 
 @Component({
     selector: 'app-categories',
@@ -27,7 +28,15 @@ export class CategoriesComponent implements OnInit {
   @Output()
   deleteCategory = new EventEmitter<Category>();
 
+  @Output()
+  addCategory = new EventEmitter<string>();
+
+  @Output()
+  searchCategory = new EventEmitter<string>();
+
   indexMouseMove: number;
+  searchCategoryTitle: string;
+
 
   constructor(private dataHandler: DataHandlerService,
               private dialog: MatDialog) {
@@ -53,12 +62,13 @@ export class CategoriesComponent implements OnInit {
   }
 
   openEditCategoryDialog(category: Category){
-    const dialogRef = this.dialog.open(EditCategoryComponent,{data: [category.title, 'Редактирование категории'], autoFocus: false});
+    const dialogRef = this.dialog.open(EditCategoryComponent,{data: [category.title, 'Редактирование категории',OpenType.EDIT], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result => {
 
       if (result === 'delete'){
         this.deleteCategory.emit(category);
+        return;
       }
 
       if (typeof (result) === 'string'){
@@ -68,6 +78,25 @@ export class CategoriesComponent implements OnInit {
         return;
       }
     });
+  }
+
+  public onAddCategory(){
+    //const category = new Category(null,'');
+
+    const dialogRef = this.dialog.open(EditCategoryComponent,{data: ['','Добавление категории',OpenType.ADD],autoFocus: false});
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if (result){
+        this.addCategory.emit(result as string);
+      }
+    });
+  }
+
+  public search(){
+    if(this.searchCategoryTitle == null){
+      return;
+    }
+    this.searchCategory.emit(this.searchCategoryTitle);
   }
 
 }

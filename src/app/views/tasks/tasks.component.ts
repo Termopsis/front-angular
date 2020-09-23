@@ -6,7 +6,8 @@ import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import {Category} from 'src/app/model/Category';
 import {Priority} from 'src/app/model/Priority';
-import validate = WebAssembly.validate;
+import {OpenType} from 'src/app/dialog/OpenType';
+
 
 @Component({
   selector: 'app-tasks',
@@ -55,6 +56,12 @@ export class TasksComponent implements OnInit {
   @Output()
   filterByTitle = new EventEmitter<string>();
 
+  @Output()
+  addTask = new EventEmitter<Task>();
+
+  @Input()
+  selectedCategory: Category;
+
   private selectedPriorityFilter: Priority;
   private selectedStatusFilter: boolean;
   private searchTaskText: string;
@@ -74,7 +81,8 @@ export class TasksComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     //this.dataHandlerService.getAllPriorities().subscribe(items => this.priorities = items);
 
-    this.fillTable();
+    this.onSelectedCategory(null);
+    //this.fillTable();
   }
 
   // в зависимости от статуса задачи - вернуть цвет названия
@@ -131,7 +139,7 @@ export class TasksComponent implements OnInit {
 
   private openEditTaskDialog(task: Task): void {
 
-    const dialogRef = this.dialog.open(EditTaskComponent, {data: [task, 'Редактирование задачи'], autoFocus: false});
+    const dialogRef = this.dialog.open(EditTaskComponent, {data: [task, 'Редактирование задачи',OpenType.EDIT], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result => {
 
@@ -191,6 +199,20 @@ export class TasksComponent implements OnInit {
       this.selectedPriorityFilter = priority;
       this.filterByPriority.emit(this.selectedPriorityFilter);
     }
+  }
+
+  private openAddTaskDialog(){
+
+    const task = new Task(null,'',false,null,this.selectedCategory);
+
+    const dialogRef = this.dialog.open(EditTaskComponent,{data: [task,'Добавление задачи',OpenType.ADD],autoFocus: false});
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+       this.addTask.emit(task);
+      }
+    });
+
   }
 
 }

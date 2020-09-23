@@ -96,23 +96,27 @@
 
   <div class="col-md-7 col-12 text-right">
 
-    <button *ngIf="task.completed"
-            mat-button
-            (click)="completeTask()">
-      Активировать
-    </button>
+<!--    Только для существующих задач-->
+    <div *ngIf="canDelete()">
 
-    <button *ngIf="!task.completed"
-            mat-button
-            (click)="completeTask()">
-      Завершить задачу
-    </button>
+      <button *ngIf="task.completed"
+              mat-button
+              (click)="completeTask()">
+        Активировать
+      </button>
 
-    <button mat-button
-            class="red"
-            (click)="delete()">
-      Удалить задачу
-    </button>
+      <button *ngIf="!task.completed"
+              mat-button
+              (click)="completeTask()">
+        Завершить задачу
+      </button>
+
+      <button mat-button
+              class="red"
+              (click)="delete()">
+        Удалить задачу
+      </button>
+    </div>
 
   </div>
 
