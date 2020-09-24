@@ -27,17 +27,24 @@ import {ConfirmDialogComponent} from './dialog/confirm-dialog/confirm-dialog.com
 import {TaskDatePipe} from './pipe/task-date.pipe';
 import {registerLocaleData} from '@angular/common';
 import localRu from '@angular/common/locales/ru';
-import { EditCategoryComponent } from './dialog/edit-category/edit-category.component';
-import { FooterComponent } from './views/footer/footer.component';
-import { HeaderComponent } from './views/header/header.component';
-import { StatComponent } from './views/stat/stat.component';
-import { StatCardComponent } from './views/stat/stat-card/stat-card.component';
+import {EditCategoryComponent} from './dialog/edit-category/edit-category.component';
+import {FooterComponent} from './views/footer/footer.component';
+import {HeaderComponent} from './views/header/header.component';
+import {StatComponent} from './views/stat/stat.component';
+import {StatCardComponent} from './views/stat/stat-card/stat-card.component';
 import {ColorPickerModule} from 'ngx-color-picker';
-import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialog.component';
-import { PrioritiesComponent } from './views/priorities/priorities.component';
-import { EditPriorityDialogComponent } from './dialog/edit-priority-dialog/edit-priority-dialog.component';
+import {SettingsDialogComponent} from './dialog/settings-dialog/settings-dialog.component';
+import {PrioritiesComponent} from './views/priorities/priorities.component';
+import {EditPriorityDialogComponent} from './dialog/edit-priority-dialog/edit-priority-dialog.component';
+import {HttpClientModule} from '@angular/common/http';
+import {CATEGORY_URL_TOKEN} from 'src/app/data/dao/impl/CategoryService';
+import {PRIORITY_URL_TOKEN} from 'src/app/data/dao/impl/PriorityService';
+import {TASK_URL_TOKEN} from 'src/app/data/dao/impl/TaskService';
+import {STAT_URL_TOKEN} from 'src/app/data/dao/impl/StatService';
 
 registerLocaleData(localRu);
+
+
 
 @NgModule({
   declarations: [
@@ -73,9 +80,30 @@ registerLocaleData(localRu);
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    ColorPickerModule
+    ColorPickerModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: TASK_URL_TOKEN,
+      useValue: 'http://localhost:8080/task'
+    },
+
+    {
+      provide: CATEGORY_URL_TOKEN,
+      useValue: 'http://localhost:8080/category'
+    },
+
+    {
+      provide: PRIORITY_URL_TOKEN,
+      useValue: 'http://localhost:8080/priority'
+    },
+
+    {
+      provide: STAT_URL_TOKEN,
+      useValue: 'http://localhost:8080/stat'
+    },
+  ],
   entryComponents: [
     EditTaskComponent,
     EditCategoryComponent,

@@ -1,4 +1,3 @@
-
 export class CategorySearchValues {
   title: string = null;
 }
@@ -9,6 +8,7 @@ export class PrioritySearchValues {
 
 export class TaskSearchValues {
 
+  //Нач значение по умолчанию
   title = '';
   completed: number = null;
   priorityId: number = null;
@@ -16,6 +16,7 @@ export class TaskSearchValues {
   pageNumber = 0;
   pageSize = 5;
 
+  //Сортировка
   sortColumn = 'title';
   sortDirection = 'asc';
 
