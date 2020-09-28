@@ -28,11 +28,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   // используется для категории Все
-  @Input('uncompletedCountForCategoryAll')
-  set uncompletedCount(uncompletedCountForCategoryAll: number) {
-    this.uncompletedCountForCategoryAll = uncompletedCountForCategoryAll;
+  @Input('uncompleted')
+  set setUncompletedCount(uncompleted: number) {
+    this.uncompleted = uncompleted;
   }
-
 
   @Output()
   selectCategory = new EventEmitter<Category>();
@@ -57,7 +56,7 @@ export class CategoriesComponent implements OnInit {
   private filterTitle: string;
   private filterChanged: boolean;
   private categorySearchValues: CategorySearchValues;
-  private uncompletedCountForCategoryAll: number;
+  private uncompleted: number;
 
   constructor(private dialog: MatDialog) {
   }

@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   private showStat: boolean;
 
   //Статистика по задачам
-  uncompletedCountForCategoryAll: number;
+  uncompleted: number;
 
   //Параметры поиска/Фильтрации
   categorySearchValues = new CategorySearchValues();
@@ -54,11 +54,9 @@ export class AppComponent implements OnInit {
 
     this.statService.getOverAllStat().subscribe(result => {     // сначала получаем данные статистики
       this.stat = result;
-      this.uncompletedCountForCategoryAll = this.stat.unCompletedTotal;
-
-      // заполнить категории
+      this.uncompleted = result.uncompletedTotal;
       this.fillAllCategories();
-
+    //
     });
   }
 
@@ -97,7 +95,7 @@ export class AppComponent implements OnInit {
     if (category) {
       this.fillDashBoardData(category.completedCount, category.uncompletedCount);
     } else {
-      this.fillDashBoardData(this.stat.completedTotal, this.stat.unCompletedTotal);
+      this.fillDashBoardData(this.stat.completedTotal, this.stat.uncompletedTotal);
     }
 
     // сбрасываем, чтобы показывать результат с первой страницы
@@ -224,10 +222,10 @@ export class AppComponent implements OnInit {
   private updateOverallCounter() {
     this.statService.getOverAllStat().subscribe((res => { // получить из БД актуальные данные
       this.stat = res; // получили данные из БД
-      this.uncompletedCountForCategoryAll = this.stat.unCompletedTotal; // для счетчика категории "Все"
+      this.uncompleted = this.stat.uncompletedTotal; // для счетчика категории "Все"
 
       if (!this.selectedCategory) { // если выбрана категория "Все" (selectedCategory === null)
-        this.fillDashBoardData(this.stat.completedTotal, this.stat.unCompletedTotal); // заполнить дашборд данными общей статистики
+        this.fillDashBoardData(this.stat.completedTotal, this.stat.uncompletedTotal); // заполнить дашборд данными общей статистики
       }
     }));
   }
