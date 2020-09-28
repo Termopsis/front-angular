@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Category} from 'src/app/model/Category';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
-import {OpenType} from 'src/app/dialog/OpenType';
+import {DialogAction, DialogResult} from 'src/app/object/DialogResult';
 
 @Component({
   selector: 'app-edit-category',
@@ -11,30 +11,28 @@ import {OpenType} from 'src/app/dialog/OpenType';
 })
 export class EditCategoryComponent implements OnInit {
 
-  //private category: Category;
   private dialogTitle: string;
-  private title: string;
-  private openType: OpenType;
+  private category: Category;
+  private canDelete = false;
 
   constructor(
     private dialogRef: MatDialogRef<EditCategoryComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: [string, string, OpenType],
+    @Inject(MAT_DIALOG_DATA) private data: [Category, string],
     private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
-
-    this.title = this.data[0];
+    this.category = this.data[0];
     this.dialogTitle = this.data[1];
-    this.openType = this.data[2];
+
+    if (this.category && this.category.id){
+      this.canDelete = true;
+    }
 
   }
 
-  public onConfirm(): void{
-    //this.category.title = this.tmpTitle;
-
-    //Должно быть вызвано обноелвение и кат и задач
-    this.dialogRef.close(this.title);
+  public confirm(): void{
+    this.dialogRef.close(new DialogResult(DialogAction.SAVE, this.category));
   }
 
   public delete(): void{
@@ -42,23 +40,19 @@ export class EditCategoryComponent implements OnInit {
       maxWidth: '400px',
       data:{
         dialogTitle: "Подтвердите действие",
-        message: `Вы уверены что хотите удалить категорию: "${this.title}"? (Удаляемая категория будет очищена в задачах)`
+        message: `Вы уверены что хотите удалить категорию: "${this.category.title}"? (Удаляемая категория будет очищена в задачах)`
       },
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.dialogRef.close('delete');
+        this.dialogRef.close(new DialogResult(DialogAction.DELETE, this.category));
       }
     });
   }
 
-  public onCancel(){
-    this.dialogRef.close(false);
-  }
-
-  public canDelete(): boolean{
-    return this.openType === OpenType.EDIT;
+  public cancel(){
+    this.dialogRef.close(new DialogResult(DialogAction.CANCEL));
   }
 
 }

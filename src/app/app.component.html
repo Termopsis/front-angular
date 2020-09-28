@@ -2,20 +2,20 @@
 
 <!--  Левая панель-->
   <app-categories
-    (searchCategory)="onSearchCategory($event)"
-    (selectCategory)="onSelectCategory($event)"
-    (updateCategory)="onUpdateCategory($event)"
-    (deleteCategory)="onDeleteCategory($event)"
-    (addCategory)="onAddCategory($event)"
-    [categoryMap]="categoryMap"
-    [uncompletedTotal]="uncompletedTotalTasksCount"
+    (addCategory)="addCategory($event)"
+    (deleteCategory)="deleteCategory($event)"
+    (updateCategory)="updateCategory($event)"
+    (selectCategory)="selectCategory($event)"
+    (searchCategory)="searchCategory($event)"
 
-    [selectedCategory]="selectedCategory"
     [categories]="categories"
+    [selectedCategory]="selectedCategory"
+    [categorySearchValues]="categorySearchValues"
+    [uncompletedCountForCategoryAll]="uncompletedCountForCategoryAll"
 
   ></app-categories>
 
-<!--  Главная - Правая панель-->
+<!--  Главная - правая панель-->
   <div class="main-panel">
 
     <!-- Navbar -->
@@ -33,33 +33,32 @@
       <div class="container-fluid cont">
 
         <app-stat
-          [totalTasksInCategory]="totalTasksCountInCategory"
-          [completeTasksInCategory]="completedCountInCategory"
-          [uncompleteTasksInCategory]="uncompletedCountInCategory"
+          [dashBoard]="dashBoard"
           [showStat]="showStat">
-
         </app-stat>
 
         <div class="row">
 
           <div class="col-12">
             <app-tasks
-              (updateTask)="onUpdateTask($event)"
-              (deleteTask)="onDeleteTask($event)"
-              (selectCategory)="onSelectCategory($event)"
-              (addTask)="onAddTask($event)"
 
-
-              [selectedCategory]="selectedCategory"
-              (filterByStatus)="onFilterTasksByStatus($event)"
-              (filterByTitle)="onSearchTasks($event)"
-              (filterByPriority)="onFilterTaskByPriority($event)"
-
+              [showSearch]="showSearch"
+              [totalTasksFounded]="totalTasksFounded"
               [tasks]="tasks"
               [priorities]="priorities"
+              [categories]="categories"
+              [selectedCategory]="selectedCategory"
+              [taskSearchValues]="taskSearchValues"
 
-            ></app-tasks>
+              (searchAction)="searchTasks($event)"
+              (toggleSearch)="toggleSearch($event)"
+              (paging)="paging($event)"
+              (selectCategory)="selectCategory($event)"
+              (addTask)="addTask($event)"
+              (updateTask)="updateTask($event)"
+              (deleteTask)="deleteTask($event)">
 
+            </app-tasks>
           </div>
         </div>
       </div>

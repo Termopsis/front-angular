@@ -6,7 +6,7 @@ import {DatePipe} from '@angular/common';
 })
 export class TaskDatePipe extends DatePipe implements PipeTransform {
 
-  transform(date: Date | string, format: string = 'MMM d, y'): string {
+  transform(date: Date | string, format: string = 'mediumDate'): string {
 
     if (date == null) {
       return 'Без срока';

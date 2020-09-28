@@ -1,4 +1,4 @@
-import {Injectable, InjectionToken} from '@angular/core';
+import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {StatDAO} from 'src/app/data/dao/interface/StatDAO';
 import {Observable} from 'rxjs';
 import {Stat} from 'src/app/model/Stat';
@@ -15,14 +15,13 @@ export const STAT_URL_TOKEN = new InjectionToken<string>('url');
 // класс не реализовывает и не наследует, т.к. у него только 1 методм
 export class StatService implements StatDAO {
 
-  url = 'http://localhost:8080/stat';
-
-  constructor(private http: HttpClient
+  constructor(@Inject(STAT_URL_TOKEN) private baseUrl,
+              private http: HttpClient
   ) {
   }
 
   // общая статистика
   getOverAllStat(): Observable<Stat> {
-    return this.http.get<Stat>(this.url);
+    return this.http.get<Stat>(this.baseUrl);
   }
 }

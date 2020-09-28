@@ -6,12 +6,12 @@
     <input
     #inputTitle
     matInput
-    [(ngModel)]="title"
-    (keydown.enter)="onConfirm()">
-    <button *ngIf="title.trim().length > 0"
+    [(ngModel)]="category.title"
+    (keydown.enter)="confirm()">
+    <button *ngIf="category.title.trim().length > 0"
             class="clear-icon size25"
             mat-botton matSuffix mat-icon-button aria-label="Clear"
-            (click)="title=''" class="size25">
+            (click)="category.title=''">
       <mat-icon>clear</mat-icon>
     </button>
   </mat-form-field>
@@ -22,15 +22,15 @@
 <mat-dialog-actions>
   <div class="col-12 text-center">
     <button mat-raised-button color="primary"
-            (click)="onConfirm()"
+            (click)="confirm()"
             [disabled]="inputTitle.value.trim().length==0">
       Сохранить
     </button>
 
-    <button mat-raised-button (click)="onCancel()">Отмена</button>
+    <button mat-raised-button (click)="cancel()">Отмена</button>
   </div>
 
-  <div *ngIf="canDelete()"
+  <div *ngIf="canDelete"
     class="col-12 text-center">
     <button mat-button
             class="red"

@@ -13,15 +13,16 @@ export class StatCardComponent implements OnInit {
   @Input()
   iconName: string;
 
+  //Текущее значение
   @Input()
-  count1: number | string;
+  count1: any;
 
+  //Всего
   @Input()
-  countTotal: any;
+  count2: any;
 
   @Input()
   title: string;
-
 
   constructor() { }
 

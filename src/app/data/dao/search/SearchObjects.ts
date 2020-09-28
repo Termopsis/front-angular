@@ -11,8 +11,8 @@ export class TaskSearchValues {
   //Нач значение по умолчанию
   title = '';
   completed: number = null;
-  priorityId: number = null;
-  categoryId: number = null;
+  priority_id: number = null;
+  category_id: number = null;
   pageNumber = 0;
   pageSize = 5;
 

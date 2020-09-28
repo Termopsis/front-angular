@@ -23,5 +23,4 @@ export class PriorityService extends CommonService<Priority> implements Priority
   findPriorities(prioritySearchValues: PrioritySearchValues) {
     return this.http.post<Priority[]>(this.baseUrl + '/search', prioritySearchValues);
   }
-
 }
