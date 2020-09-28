@@ -41,7 +41,6 @@ import {CATEGORY_URL_TOKEN} from 'src/app/data/dao/impl/CategoryService';
 import {PRIORITY_URL_TOKEN} from 'src/app/data/dao/impl/PriorityService';
 import {TASK_URL_TOKEN} from 'src/app/data/dao/impl/TaskService';
 import {STAT_URL_TOKEN} from 'src/app/data/dao/impl/StatService';
-import {DialogAction, DialogResult} from 'src/app/object/DialogResult';
 
 
 registerLocaleData(localRu);

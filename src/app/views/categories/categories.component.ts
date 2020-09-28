@@ -144,7 +144,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   checkFilterChanged() {
-
     this.filterChanged = false;
 
     if (this.filterTitle !== this.categorySearchValues.title) {

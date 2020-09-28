@@ -4,7 +4,6 @@ import {Task} from 'src/app/model/Task';
 import {Category} from 'src/app/model/Category';
 import {Priority} from 'src/app/model/Priority';
 import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
-import {OpenType} from 'src/app/dialog/OpenType';
 import {DialogAction, DialogResult} from 'src/app/object/DialogResult';
 
 @Component({
@@ -18,7 +17,7 @@ export class EditTaskComponent implements OnInit {
     private dialogRef: MatDialogRef<EditTaskComponent>,
     @Inject(MAT_DIALOG_DATA) private data: [Task, string, Category[], Priority[]],
     private dialog: MatDialog,
-  ) {}
+  ) { }
 
   private categories: Category[];
   private priorities: Priority[];
@@ -82,7 +81,6 @@ export class EditTaskComponent implements OnInit {
       // в поле дата хранится в текущей timezone, в БД дата автоматически сохранится в формате UTC
       this.task.date = this.newDate;
     }
-
 
     this.dialogRef.close(new DialogResult(DialogAction.SAVE, this.task));
 

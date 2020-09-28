@@ -49,7 +49,6 @@ export class PrioritiesComponent implements OnInit {
         this.deletePriority.emit(priority);
       }
     });
-
   }
 
   private onAddPriority(): void {
@@ -66,12 +65,9 @@ export class PrioritiesComponent implements OnInit {
         this.addPriority.emit(newPriority);
       }
     });
-
-
   }
 
   private onEditPriority(priority: Priority): void {
-
 
     const dialogRef = this.dialog.open(EditPriorityDialogComponent, {data: [priority.title, 'Редактирование приоритета', OpenType.EDIT]});
 
@@ -82,16 +78,11 @@ export class PrioritiesComponent implements OnInit {
         return;
       }
 
-
       if (result) {
         priority.title = result as string;
         this.updatePriority.emit(priority);
         return;
       }
     });
-
-
   }
-
-
 }

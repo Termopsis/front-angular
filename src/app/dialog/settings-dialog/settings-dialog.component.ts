@@ -14,7 +14,6 @@ export class SettingsDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<SettingsDialogComponent>) { }
 
   ngOnInit() {
-    //this.dataHandler.getAllPriorities().subscribe(priorities => this.priorities = priorities);
   }
 
   private onClose(){
@@ -22,15 +21,12 @@ export class SettingsDialogComponent implements OnInit {
   }
 
   private onAddPriority(priority: Priority): void {
-    //this.dataHandler.addPriority(priority).subscribe();
   }
 
   private onDeletePriority(priority: Priority): void {
-    //this.dataHandler.deletePriority(priority.id).subscribe();
   }
 
   private onUpdatePriority(priority: Priority): void {
-    //this.dataHandler.updatePriority(priority).subscribe();
   }
 
 }

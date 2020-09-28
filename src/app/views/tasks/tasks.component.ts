@@ -1,11 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Task} from 'src/app/model/Task';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
+import {MatDialog, MatTableDataSource, PageEvent} from '@angular/material';
 import {EditTaskComponent} from 'src/app/dialog/edit-task/edit-task.component';
 import {ConfirmDialogComponent} from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import {Category} from 'src/app/model/Category';
 import {Priority} from 'src/app/model/Priority';
-import {OpenType} from 'src/app/dialog/OpenType';
 import {TaskSearchValues} from 'src/app/data/dao/search/SearchObjects';
 import {DialogAction} from 'src/app/object/DialogResult';
 
@@ -16,9 +15,6 @@ import {DialogAction} from 'src/app/object/DialogResult';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-
-  // @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
-  // @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
   @Input('tasks')
   private set setTasks(tasks: Task[]) {
@@ -67,15 +63,6 @@ export class TasksComponent implements OnInit {
   @Output()
   selectCategory = new EventEmitter<Category>();
 
-  // @Output()
-  // filterByPriority = new EventEmitter<Priority>();
-  //
-  // @Output()
-  // filterByStatus = new EventEmitter<boolean>();
-  //
-  // @Output()
-  // filterByTitle = new EventEmitter<string>();
-
   @Output()
   paging = new EventEmitter<PageEvent>();
 
@@ -97,8 +84,6 @@ export class TasksComponent implements OnInit {
 
 
   private taskSearchValues: TaskSearchValues;
-  // private selectedPriorityFilter: Priority;
-  // private selectedStatusFilter: boolean;
 
   // фильры
   private filterTitle: string;
@@ -128,28 +113,18 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
-    // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
-     //this.dataSource = new MatTableDataSource();
-    //this.dataHandlerService.getAllPriorities().subscribe(items => this.priorities = items);
-    //this.assignTableSource();
-    // this.onSelectedCategory(null);
-    //this.fillTable();
   }
 
   assignTableSource() {
-
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     if (!this.dataSource) {
       return;
     }
     this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
-
   }
 
   openAddDialog() {
-
     const task = new Task(null, '', 0, null, this.selectedCategory);
-
     const dialogRef = this.dialog.open(EditTaskComponent, {
 
       // передаем новый пустой объект  для заполнения
@@ -167,7 +142,6 @@ export class TasksComponent implements OnInit {
         this.addTask.emit(task);
       }
     });
-
   }
 
   openEditDialog(task: Task): void {
@@ -204,7 +178,6 @@ export class TasksComponent implements OnInit {
         this.updateTask.emit(task);
         return;
       }
-
     });
   }
 
@@ -228,7 +201,6 @@ export class TasksComponent implements OnInit {
     });
   }
 
-
   // нажали/отжали выполнение задачи
   onToggleCompleted(task: Task) {
     if (task.completed === 0) {
@@ -239,7 +211,6 @@ export class TasksComponent implements OnInit {
 
     this.updateTask.emit(task);
   }
-
 
   // в зависимости от статуса задачи - вернуть цвет
   getPriorityColor(task: Task) {
@@ -255,7 +226,6 @@ export class TasksComponent implements OnInit {
     }
 
     return this.colorWhite;
-
   }
 
   // в зависимости от статуса задачи - вернуть фоновый цвет
@@ -268,12 +238,10 @@ export class TasksComponent implements OnInit {
     return 'none';
   }
 
-
 // в это событие попадает как переход на другую страницу (pageIndex), так и изменение кол-ва данных на страниц (pageSize)
   pageChanged(pageEvent: PageEvent) {
     this.paging.emit(pageEvent);
   }
-
 
   // параметры поиска
   initSearch() {
@@ -290,7 +258,6 @@ export class TasksComponent implements OnInit {
     this.changed = false; // сбрасываем флаг изменения
 
   }
-
 
   // проверяет, были ли изменены какие-либо параметры поиска (по сравнению со старым значением)
   checkFilterChanged() {
@@ -319,10 +286,7 @@ export class TasksComponent implements OnInit {
     }
 
     return this.changed;
-
   }
-
-
 
   // выбрать правильную иконку (убывание, возрастание)
   initSortDirectionIcon() {
@@ -334,7 +298,6 @@ export class TasksComponent implements OnInit {
     }
   }
 
-
   // изменили направление сортировки
   changedSortDirection() {
 
@@ -345,7 +308,6 @@ export class TasksComponent implements OnInit {
     }
 
     this.initSortDirectionIcon(); // применяем правильную иконку
-
   }
 
   // проинициализировать локальные переменные поиска

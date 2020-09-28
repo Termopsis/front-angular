@@ -28,7 +28,6 @@ export class EditCategoryComponent implements OnInit {
     if (this.category && this.category.id){
       this.canDelete = true;
     }
-
   }
 
   public confirm(): void{

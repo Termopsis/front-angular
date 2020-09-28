@@ -4,7 +4,6 @@ import {Category} from 'src/app/model/Category';
 import {Priority} from 'src/app/model/Priority';
 import {CategorySearchValues, TaskSearchValues} from 'src/app/data/dao/search/SearchObjects';
 import {CategoryService} from 'src/app/data/dao/impl/CategoryService';
-import {THIS_EXPR} from '@angular/compiler/src/output/output_ast';
 import {TaskService} from 'src/app/data/dao/impl/TaskService';
 import {MatDialog, PageEvent} from '@angular/material';
 import {PriorityService} from 'src/app/data/dao/impl/PriorityService';
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit {
       this.stat = result;
       this.uncompleted = result.uncompletedTotal;
       this.fillAllCategories();
-    //
     });
   }
 
@@ -273,7 +271,6 @@ export class AppComponent implements OnInit {
   private paging(pageEvent: PageEvent){
 
     this.taskSearchValues.pageSize = pageEvent.pageSize;
-    //this.taskSearchValues.pageNumber = pageEvent.pageIndex;
 
     //Если изменили количество элементов на странице
     if (this.taskSearchValues.pageSize !== pageEvent.pageSize) {

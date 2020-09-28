@@ -21,7 +21,6 @@ export class ConfirmDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   //Подтверждение удаления. Вернем true
